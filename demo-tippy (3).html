@@ -1,0 +1,82 @@
+<html>
+<head jang="ja">
+<meta charset="UTF-8">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.2.7/cytoscape.min.js"></script>
+
+<!-- for 'layout: "dagre"' -->
+<script src="https://cdn.rawgit.com/cpettitt/dagre/v0.7.4/dist/dagre.min.js"></script>
+<script src="https://cdn.rawgit.com/cytoscape/cytoscape.js-dagre/1.5.0/cytoscape-dagre.js"></script>
+<style>
+#cy {
+  width: 100%;  /* MUST */
+  height: 100%;  /* MUST */
+
+  /**
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 999;
+  */
+}
+</style>
+</head>
+<body>
+<div id="cy"></div>
+<script>
+var cy = window.cy = cytoscape({
+  container: document.getElementById('cy'),
+
+  boxSelectionEnabled: false,
+  autounselectify: true,
+
+  layout: {
+    name: 'dagre'
+  },
+  style: [
+    {
+      selector: 'node',
+      style: {
+        'content': 'data(id)',  /* must be specified if you want to display the node text */
+        /**
+        'text-opacity': 0.5,
+        'text-valign': 'center',
+        'text-halign': 'right',
+        */
+        'background-color': '#11479e'
+      }
+    },
+    {
+      selector: 'edge',
+      style: {
+        'target-arrow-shape': 'triangle',
+        'curve-style': 'bezier',
+        'target-arrow-color': '#9dbaea',
+        'width': 4,
+        'line-color': '#9dbaea',
+      }
+    }
+  ],
+
+  elements: {
+    "nodes": [
+      { "data": { "id": "場面1" } }, 
+      { "data": { "id": "場面2" } }, 
+      { "data": { "id": "動作主" } },  
+      { "data": { "id": "動作" } }, 
+      { "data": { "id": "原文" } }, 
+      { "data": { "id": "目的語" } }
+    ], 
+    "edges": [
+      { "data": { "source": "場面1", "target": "動作主" } }, 
+      { "data": { "source": "場面1", "target": "動作" } }, 
+      { "data": { "source": "場面1", "target": "目的語" } }, 
+      { "data": { "source": "場面1", "target": "原文" } }, 
+      { "data": { "source": "場面1", "target": "場面2" } }, 
+    ]
+  },
+
+});
+</script>
+</body>
+</html>
